@@ -10,7 +10,7 @@ function makeResponsive() {
   var margin = {
     top: 50,
     right: 50,
-    bottom: 70,
+    bottom: 80,
     left: 75
   };
 
@@ -90,13 +90,13 @@ function makeResponsive() {
   // Function to update the state labels!!!@TODO
 
 
-  function renderLabels(chartGroup, xScale, chosenXaxis, yScale, chosenYaxis) {
+  function renderLabels(chartGroup, xLinearScale, chosenXaxis, yLinearScale, chosenYaxis) {
     console.log(chartGroup.selectAll("text"))
-    chartGroup.selectAll("text")
+    chartGroup.selectAll(".stateText")
       .transition()
       .duration(1000)
-      .attr("x", d => xScale(d[chosenXaxis]))
-      .attr("y", d => yScale(d[chosenYaxis]));
+      .attr("x", d => xLinearScale(d[chosenXaxis]))
+      .attr("y", d => yLinearScale(d[chosenYaxis]));
   };
   
 
@@ -108,7 +108,7 @@ function makeResponsive() {
     var xlabel;
 
     if (xvalue === "poverty") {
-      xlabel = "Poverty:";
+      xlabel = "In Poverty:";
     } else if (xvalue === "age") {
       xlabel = "Age:"
     } else {
@@ -248,21 +248,21 @@ function makeResponsive() {
 
     var povertyLabel = xlabelsGroup.append("text")
       .attr("x", 0)
-      .attr("y", 10)
+      .attr("y", 12)
       .attr("value", "poverty") // value to grab for event listener
       .classed("active", true)
       .text("In Poverty (%)");
 
     var ageLabel = xlabelsGroup.append("text")
       .attr("x", 0)
-      .attr("y", 26)
+      .attr("y", 30)
       .attr("value", "age") // value to grab for event listener
       .classed("inactive", true)
       .text("Age (Median)");
 
     var incomeLabel = xlabelsGroup.append("text")
       .attr("x", 0)
-      .attr("y", 40)
+      .attr("y", 48)
       .attr("value", "income") // value to grab for event listener
       .classed("inactive", true)
       .text("Household Income (Median)");
@@ -326,7 +326,7 @@ function makeResponsive() {
         circlesGroup2 = updateToolTip(xvalue, chosenYaxis, circlesGroup);
 
         // updates state labels with new info
-        chartGroup1 = renderLabels(chartGroup, xScale, xvalue, yScale, chosenYaxis);
+        chartGroup1 = renderLabels(chartGroup, xLinearScale, xvalue, yLinearScale, chosenYaxis);
 
         // changes classes to change bold text
 
@@ -387,7 +387,7 @@ function makeResponsive() {
         circlesGroup2 = updateToolTip(chosenXaxis, yvalue, circlesGroup);
 
         // updates state labels with new info
-        chartGroup1 = renderLabels(chartGroup, xScale, chosenXaxis, yScale, yvalue);
+        chartGroup1 = renderLabels(chartGroup, xLinearScale, chosenXaxis, yLinearScale, yvalue);
 
         // changes classes to change bold text
         if (chosenYaxis === "healthcareLow") {
