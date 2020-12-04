@@ -1,4 +1,4 @@
-// @TODO: YOUR CODE HERE!
+// D3 Data Journalism
 // The code for the chart is wrapped inside a function that
 // automatically resizes the chart
 function makeResponsive() {
